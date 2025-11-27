@@ -1,34 +1,32 @@
-// import FormData from 'form-data';
-const FormData = require('form-data');
-import Mailgun from 'mailgun.js';
+import { Resend } from "resend";
 
-type EmailParams = {
-  to: string;
-  subject: string;
-  text: string;
+export const resend = new Resend(process.env.RESEND_API_KEY);
+
+export const sendEmail = async ({
+	to,
+	subject,
+	html,
+}: {
+	to: string;
+	subject: string;
+	html: string;
+}) => {
+	try {
+		const { data, error } = await resend.emails.send({
+			from: process.env.FROM_EMAIL || "onboarding@resend.dev",
+			to,
+			subject,
+			html,
+		});
+
+		if (error) {
+			console.error("Error sending email:", error);
+			return { success: false, error };
+		}
+
+		return { success: true, data };
+	} catch (error) {
+		console.error("Error sending email:", error);
+		return { success: false, error };
+	}
 };
-
-export async function sendEmail({ to, subject, text }: EmailParams) {
-  const mailgunDomain = process.env.MAILGUN_DOMAIN;
-  const mailgunApiKey = process.env.MAILGUN_API_KEY;
-
-  const mailgun = new Mailgun(FormData);
-  const mg = mailgun.client({
-    username: 'api',
-    key: mailgunApiKey!,
-  });
-
-  const messageData = {
-    from: `Nick Olson Codes <noreply@${mailgunDomain}>`,
-    to,
-    subject,
-    text,
-  };
-
-  try {
-    const data = await mg.messages.create(mailgunDomain!, messageData);
-    console.log(data);
-  } catch (error) {
-    console.error(error);
-  }
-}
