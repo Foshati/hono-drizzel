@@ -10,6 +10,7 @@
 		"lint": "bunx biome lint --write"
 	},
 	"dependencies": {
+		"@hono/typebox-validator": "^1.1.0",
 		"@sinclair/typebox": "^0.34.41",
 		"better-auth": "^1.4.3",
 		"dotenv": "^17.2.3",

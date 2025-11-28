@@ -1,0 +1,57 @@
+### Variables
+@baseUrl = http://localhost:3000
+@token = YOUR_AUTH_TOKEN_HERE
+
+### 1. Sign Up (Create a new user)
+POST {{baseUrl}}/api/auth/sign-up/email
+Content-Type: application/json
+
+{
+  "email": "test2@example.com",
+  "password": "password123",
+  "name": "amir"
+}
+
+### 2. Sign In (Get Token)
+# After signing in, copy the 'token' from the response body or 'connect.sid' from cookies
+# and update the @token variable at the top of this file.
+POST {{baseUrl}}/api/auth/sign-in/email
+Content-Type: application/json
+
+{
+  "email": "test2@example.com",
+  "password": "password123"
+}
+
+### Get all todos
+GET {{baseUrl}}/api/todos
+Authorization: Bearer {{token}}
+
+### Get a single todo by ID
+GET {{baseUrl}}/api/todos/YOUR_TODO_ID_HERE
+Authorization: Bearer {{token}}
+
+### Create a new todo
+POST {{baseUrl}}/api/todos
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "title": "Learn TypeBox",
+  "description": "Master TypeBox validation with Hono",
+  "completed": false
+}
+
+### Update a todo
+PATCH {{baseUrl}}/api/todos/YOUR_TODO_ID_HERE
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "title": "Learn TypeBox - Updated",
+  "completed": true
+}
+
+### Delete a todo
+DELETE {{baseUrl}}/api/todos/YOUR_TODO_ID_HERE
+Authorization: Bearer {{token}}

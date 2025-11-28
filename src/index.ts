@@ -1,12 +1,27 @@
+import { cors } from "hono/cors";
 import { auth } from "./lib/auth";
 import createApp from "./lib/create-app";
+import { todos } from "./routes/todos.routes";
 
 const app = createApp();
 
-app
-	.on(["POST", "GET"], "/api/auth/*", (c) => auth.handler(c.req.raw))
-	.get("/", (c) => {
-		return c.text("Hello Hono!");
-	});
+app.use(
+  "/api/auth/*", // or replace with "*" to enable cors for all routes
+  cors({
+    origin: "http://localhost:3000", // replace with your origin
+    allowHeaders: ["Content-Type", "Authorization"],
+    allowMethods: ["POST", "GET", "OPTIONS"],
+    exposeHeaders: ["Content-Length"],
+    maxAge: 600,
+    credentials: true,
+  })
+);
+app.on(["POST", "GET"], "/api/auth/**", (c) => auth.handler(c.req.raw));
+
+// route
+app.route("/api/todos", todos);
+app.get("/", (c) => {
+  return c.text("Hono is healthy");
+});
 
 export default app;

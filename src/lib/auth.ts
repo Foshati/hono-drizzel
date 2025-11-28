@@ -1,4 +1,5 @@
 import db from "@/db";
+import * as schema from "@/db/schema";
 import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { openAPI } from "better-auth/plugins";
@@ -11,10 +12,11 @@ import {
 export const auth = betterAuth({
 	database: drizzleAdapter(db, {
 		provider: "pg",
+		schema,
 	}),
 	emailAndPassword: {
 		enabled: true,
-		requireEmailVerification: true,
+		requireEmailVerification: false,
 		sendResetPassword: async ({ user, url }: { user: { name: string; email: string }; url: string }) => {
 			const template = resetPasswordEmailTemplate({
 				userName: user.name,
