@@ -1,0 +1,16 @@
+# Database Connection
+DATABASE_URL=
+
+# Better Auth Configuration
+BETTER_AUTH_SECRET=
+BETTER_AUTH_URL="http://localhost:3000"
+
+# Resend (Email) Configuration
+RESEND_API_KEY=""
+FROM_EMAIL=""
+
+# GitHub OAuth
+GITHUB_CLIENT_ID=""
+GITHUB_CLIENT_SECRET=""
+
+LOG_LEVEL="info"

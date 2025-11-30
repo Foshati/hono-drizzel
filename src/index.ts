@@ -18,8 +18,24 @@ app.use(
 );
 app.on(["POST", "GET"], "/api/auth/**", (c) => auth.handler(c.req.raw));
 
+import { benchmarkRoutes } from "./routes/benchmark.routes";
+
+// ... existing imports
+
 // route
 app.route("/api/todos", todos);
+app.route("/api/benchmark", benchmarkRoutes);
+app.get("/", (c) => {
+  return c.text("Hono is healthy");
+});
+
+// ... existing code ...
+
+// ... existing imports
+
+// route
+app.route("/api/todos", todos);
+app.route("/api/benchmark", benchmarkRoutes);
 app.get("/", (c) => {
   return c.text("Hono is healthy");
 });

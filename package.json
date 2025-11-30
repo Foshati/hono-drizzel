@@ -11,11 +11,13 @@
 	},
 	"dependencies": {
 		"@hono/typebox-validator": "^1.1.0",
+		"@scalar/hono-api-reference": "^0.9.25",
 		"@sinclair/typebox": "^0.34.41",
 		"better-auth": "^1.4.3",
 		"dotenv": "^17.2.3",
 		"drizzle-orm": "^0.44.7",
 		"hono": "^4.10.7",
+		"hono-openapi": "^1.1.1",
 		"hono-pino": "^0.10.3",
 		"pino": "^10.1.0",
 		"pino-pretty": "^13.1.2",
